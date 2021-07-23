@@ -24,7 +24,7 @@
 #define CONFIG_EXAMPLES_DIR "Two Trees/BlueR/BlueR V3"
 
 #define BLUER_TMC2209 // Enable for the TMC2209 driver version
-//#define BLUER_BLTOUCH // Enable if you want to use BLTOUCH
+#define BLUER_Z_PROBE // Enable if you want to use 5V LJ18A3-8-Z/BY inductive sensor
 
 /**
  * Configuration.h
@@ -730,7 +730,12 @@
 #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
+
+#if ENABLED(BLUER_Z_PROBE)
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the PNP NO probe.
+#else
+  #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#endif
 
 /**
  * Stepper Drivers
@@ -927,12 +932,12 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#if ENABLED(BLUER_BLTOUCH)
-  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#if ENABLED(BLUER_Z_PROBE)
+  //#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+  // Force the use of the probe for Z-axis homing
+  #define USE_PROBE_FOR_Z_HOMING
 #endif
 
-// Force the use of the probe for Z-axis homing
-//#define USE_PROBE_FOR_Z_HOMING
 
 /**
  * Z_MIN_PROBE_PIN
@@ -949,7 +954,7 @@
  *      - normally-closed switches to GND and D32.
  *      - normally-open switches to 5V and D32.
  */
-//#define Z_MIN_PROBE_PIN 32 // Pin 32 is the RAMPS default
+#define Z_MIN_PROBE_PIN PA8 // Pin 32 is the RAMPS default
 
 /**
  * Probe Type
@@ -969,7 +974,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -982,13 +987,6 @@
  */
 //#define Z_PROBE_SERVO_NR 0       // Defaults to SERVO 0 connector.
 //#define Z_SERVO_ANGLES { 70, 0 } // Z Servo Deploy and Stow angles
-
-/**
- * The BLTouch probe uses a Hall effect sensor and emulates a servo.
- */
-#if ENABLED(BLUER_BLTOUCH)
-  #define BLTOUCH
-#endif
 
 /**
  * Touch-MI Probe by hotends.fr
@@ -1080,7 +1078,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 48, -4, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1131,7 +1129,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
+#define MULTIPLE_PROBING 2
 //#define EXTRA_PROBING    1
 
 /**
@@ -1160,7 +1158,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1421,7 +1419,7 @@
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_UBL
-#if ENABLED(BLUER_BLTOUCH)
+#if ENABLED(BLUER_Z_PROBE)
   #define AUTO_BED_LEVELING_BILINEAR
 #else
   #define MESH_BED_LEVELING
@@ -1622,7 +1620,7 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing.
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-#if ENABLED(BLUER_BLTOUCH)
+#if ENABLED(BLUER_Z_PROBE)
   #define Z_SAFE_HOMING
 #endif
 
