@@ -523,9 +523,9 @@
     #define DEFAULT_Kd_LIST { 48.43, 48.43 }
   #else
     // Bluer
-    #define DEFAULT_Kp 15.72
-    #define DEFAULT_Ki  1.24
-    #define DEFAULT_Kd 49.77
+    #define DEFAULT_Kp 15.50
+    #define DEFAULT_Ki  1.09
+    #define DEFAULT_Kd 55.29
   #endif
 #endif // PIDTEMP
 
@@ -565,9 +565,9 @@
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
   //BlueR PID Settings
-  #define DEFAULT_bedKp  66.39
-  #define DEFAULT_bedKi  12.94
-  #define DEFAULT_bedKd 227.14
+  #define DEFAULT_bedKp  59.54
+  #define DEFAULT_bedKi  11.25
+  #define DEFAULT_bedKd 210.02
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -829,7 +829,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if ENABLED(BLUER_TMC2209)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 415 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 830 }
 #else
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 400, 415 }
 #endif
@@ -1082,7 +1082,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 20
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60)
@@ -1487,7 +1487,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3
+  #define GRID_MAX_POINTS_X 5
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
