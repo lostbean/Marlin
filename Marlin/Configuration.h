@@ -74,7 +74,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(ils15, BlueR)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(egomes, BlauBluer)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -829,9 +829,9 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if ENABLED(BLUER_TMC2209)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 404, 450 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 404, 446 }
 #else
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 404, 450 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 404, 446 }
 #endif
 
 /**
