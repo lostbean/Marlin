@@ -1239,12 +1239,12 @@
 #if ENABLED(BLUER_TMC2209)
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    160, 160, 800, 830              \
+    160, 160, 404, 450              \
   }
 #else
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    160, 160, 400, 415              \
+    80, 80, 404, 450                \
   }
 #endif
 
