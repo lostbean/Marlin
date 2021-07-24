@@ -829,9 +829,9 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if ENABLED(BLUER_TMC2209)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 830 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 404, 450 }
 #else
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 400, 415 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 404, 450 }
 #endif
 
 /**
