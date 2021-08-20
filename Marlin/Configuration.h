@@ -1239,12 +1239,12 @@
 #if ENABLED(BLUER_TMC2209)
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    160, 160, 404, 446              \
+    160, 160, 404, 98               \
   }
 #else
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    80, 80, 404, 446                \
+    80, 80, 404, 98                 \
   }
 #endif
 
@@ -1808,9 +1808,9 @@
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #if ENABLED(BLUER_TMC2209)
-#define INVERT_E0_DIR false
-#else
 #define INVERT_E0_DIR true
+#else
+#define INVERT_E0_DIR false
 #endif
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
