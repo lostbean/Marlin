@@ -829,9 +829,9 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if ENABLED(BLUER_TMC2209)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 404, 98 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 404, 386 }
 #else
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 404, 98 }
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 404, 386 }
 #endif
 
 /**
@@ -1078,7 +1078,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 48, -4, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 48, -4, -3 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1225,7 +1225,7 @@
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #if ENABLED(BLUER_TMC2209)
-  #define INVERT_E0_DIR true
+  #define INVERT_E0_DIR false
 #else
   #define INVERT_E0_DIR false
 #endif
