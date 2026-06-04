@@ -172,3 +172,8 @@ tags
 .aider*
 !.aiderignore
 .env
+
+# Nix / direnv dev environment (.pio* above already covers .pio-core)
+.direnv/
+result
+result-*

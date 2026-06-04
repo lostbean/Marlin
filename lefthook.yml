@@ -1,0 +1,12 @@
+# Install the hooks with `lefthook install` (lefthook is in the flake devShell).
+#
+# The pre-commit hook formats only STAGED files via `nix fmt` and re-stages the
+# results (stage_fixed: true). Because treefmt here is configured for Nix files
+# ONLY (the Marlin C/C++/Python tree is excluded — this is a fork, we don't
+# reflow upstream code), this hook can only ever touch staged *.nix files.
+# Firmware sources pass through untouched.
+pre-commit:
+  commands:
+    format:
+      run: nix fmt -- {staged_files}
+      stage_fixed: true
