@@ -310,6 +310,10 @@ void menu_move() {
   void goto_tramming_wizard();
 #endif
 
+#if ENABLED(BLUER_NOZZLE_PROBE_CAL)
+  void goto_nozzle_probe_cal();
+#endif
+
 void menu_motion() {
   START_MENU();
 
@@ -363,6 +367,13 @@ void menu_motion() {
   //
   #if ENABLED(PROBE_OFFSET_WIZARD)
     SUBMENU(MSG_PROBE_WIZARD, goto_probe_offset_wizard);
+  #endif
+
+  //
+  // Nozzle-Probe Calibration (BlueR)
+  //
+  #if ENABLED(BLUER_NOZZLE_PROBE_CAL)
+    SUBMENU_F(F("Nozzle-Probe Cal"), goto_nozzle_probe_cal);
   #endif
 
   //

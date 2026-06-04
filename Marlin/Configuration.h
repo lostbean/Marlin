@@ -24,6 +24,7 @@
 #define BLUER_TMC2209 // Enable for the TMC2209 driver version
 // #define BLUER_BLTOUCH // Enable if you want to use BLTOUCH
 #define BLUER_Z_PROBE // Enable if you want to use 5V LJ18A3-8-Z/BY inductive sensor
+#define BLUER_NOZZLE_PROBE_CAL // Add a "Nozzle-Probe Cal" Motion-menu tool to measure the nozzle-to-probe Z offset
 
 /**
  * Configuration.h
