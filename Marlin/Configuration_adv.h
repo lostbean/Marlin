@@ -635,7 +635,12 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN FAN1_PIN
+// Release PB0 (HE1 connector) from being auto-assigned as FAN1_PIN, so it can
+// be used as the cutter PWM output (SPINDLE_LASER_PWM_PIN = PB0). Nothing is
+// wired to HE1; the hotend fan runs off the FAN connector (PB1).
+#define FAN1_PIN -1
+
+#define E0_AUTO_FAN_PIN -1   // Was FAN1_PIN (PB0/HE1); freed for the cutter.
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -3339,7 +3344,7 @@
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
   #if ENABLED(SPINDLE_LASER_USE_PWM)
-    #define SPINDLE_LASER_PWM_PIN       PA2    // Using the PW_DET header
+    #define SPINDLE_LASER_PWM_PIN       PB0    // HE1 connector MOSFET (Q2/J13). Real hardware PWM via TIM3; PA2/PW_DET could not (it's filtered by C30 and TIM2 is the protected TEMP_TIMER).
     #define SPINDLE_LASER_PWM_INVERT    false  // Set to "true" if the speed/power goes up when you want it to go slower
     #define SPINDLE_LASER_FREQUENCY     2500   // (Hz) Spindle/laser frequency (only on supported HALs: AVR, ESP32, and LPC)
                                                // ESP32: If SPINDLE_LASER_PWM_PIN is onboard then <=78125Hz. For I2S expander
