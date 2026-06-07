@@ -44,7 +44,7 @@ uint8_t SpindleLaser::power,                                          // Actual 
         SpindleLaser::last_power_applied; // = 0                      // Basic power state tracking
 
 #if ENABLED(LASER_FEATURE)
-  cutter_test_pulse_t SpindleLaser::testPulse = 50;                   // (ms) Test fire pulse default duration
+  cutter_test_pulse_t SpindleLaser::testPulse = 500;                  // (ms) Test fire pulse default duration
   uint8_t SpindleLaser::last_block_power; // = 0                      // Track power changes for dynamic inline power
   feedRate_t SpindleLaser::feedrate_mm_m = 1500,
              SpindleLaser::last_feedrate_mm_m; // = 0                 // (mm/min) Track feedrate changes for dynamic power
