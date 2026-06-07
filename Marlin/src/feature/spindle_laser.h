@@ -30,6 +30,10 @@
 
 #include "spindle_laser_types.h"
 
+#if LASER_SAFETY_TIMEOUT_MS > 0
+  #include "../gcode/gcode.h"   // GcodeSuite::reset_stepper_timeout() for UI-initiated power
+#endif
+
 #include "../libs/buzzer.h"
 
 // Inline laser power
@@ -262,6 +266,9 @@ public:
           menuPower = cpwr_to_upwr(SPEED_POWER_STARTUP);
         unitPower = menuPower;
         set_reverse(reverse);
+        #if LASER_SAFETY_TIMEOUT_MS > 0
+          gcode.reset_stepper_timeout(); // UI-initiated power: refresh safety-timeout window
+        #endif
         set_enabled(true);
       }
       FORCE_INLINE static void enable_forward() { enable_with_dir(false); }
@@ -281,6 +288,12 @@ public:
       static void menu_set_enabled(const bool state) {
         set_enabled(state);
         if (state) {
+          #if LASER_SAFETY_TIMEOUT_MS > 0
+            // UI-initiated power: refresh the safety-timeout window so the ISR
+            // doesn't immediately zero the output (no recent stepper move to
+            // keep previous_move_ms current, unlike the M3 path).
+            gcode.reset_stepper_timeout();
+          #endif
           if (!menuPower) menuPower = cpwr_to_upwr(SPEED_POWER_STARTUP);
           power = TERN(SPINDLE_LASER_USE_PWM, upower_to_ocr(menuPower), 255);
           apply_power(power);
