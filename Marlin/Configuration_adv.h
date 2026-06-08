@@ -635,12 +635,13 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-// Release PB0 (HE1 connector) from being auto-assigned as FAN1_PIN, so it can
-// be used as the cutter PWM output (SPINDLE_LASER_PWM_PIN = PB0). Nothing is
-// wired to HE1; the hotend fan runs off the FAN connector (PB1).
+// Keep PB0 (HE1 connector) unassigned. Its onboard MOSFET (Q2) was destroyed
+// driving a motor without flyback protection, so don't route any fan there.
+// The hotend fan runs off the FAN connector (PB1). The cutter PWM now lives on
+// PA6 (E1_STEP header) instead.
 #define FAN1_PIN -1
 
-#define E0_AUTO_FAN_PIN -1   // Was FAN1_PIN (PB0/HE1); freed for the cutter.
+#define E0_AUTO_FAN_PIN -1   // PB0/HE1 MOSFET is dead; leave the hotend auto-fan unassigned here.
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -3344,7 +3345,7 @@
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
   #if ENABLED(SPINDLE_LASER_USE_PWM)
-    #define SPINDLE_LASER_PWM_PIN       PB0    // HE1 connector MOSFET (Q2/J13). Real hardware PWM via TIM3; PA2/PW_DET could not (it's filtered by C30 and TIM2 is the protected TEMP_TIMER).
+    #define SPINDLE_LASER_PWM_PIN       PA6    // E1_STEP header (E1 unused, EXTRUDERS 1). TIM3_CH1 = real HW PWM. NOTE: raw 3.3V logic GPIO, NOT a MOSFET output -> needs the laser's own driver, or an EXTERNAL logic-level MOSFET (IRLZ44N) + flyback diode for a bare DC motor. (Was PB0/HE1 but its onboard MOSFET Q2 was destroyed driving a motor without flyback protection.)
     #define SPINDLE_LASER_PWM_INVERT    false  // Set to "true" if the speed/power goes up when you want it to go slower
     #define SPINDLE_LASER_FREQUENCY     2500   // (Hz) Spindle/laser frequency (only on supported HALs: AVR, ESP32, and LPC)
                                                // ESP32: If SPINDLE_LASER_PWM_PIN is onboard then <=78125Hz. For I2S expander
